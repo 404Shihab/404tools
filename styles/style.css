@@ -1,3 +1,140 @@
-*{
+* {
     font-family: "Archivo", sans-serif;
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-16px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+@keyframes orbA {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1)
+    }
+
+    50% {
+        transform: translateY(-32px) scale(1.07)
+    }
+}
+
+@keyframes orbB {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1)
+    }
+
+    50% {
+        transform: translate(22px, -22px) scale(1.05)
+    }
+}
+
+@keyframes bounceSlow {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(7px)
+    }
+}
+
+@keyframes pulseDot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1)
+    }
+
+    50% {
+        opacity: 0.35;
+        transform: scale(1.6)
+    }
+}
+
+@keyframes barGrow {
+    from {
+        transform: scaleX(0)
+    }
+
+    to {
+        transform: scaleX(1)
+    }
+}
+
+.anim-fade-down {
+    animation: fadeDown 0.65s ease both
+}
+
+.anim-fade-up-1 {
+    animation: fadeUp 0.65s ease 0.10s both
+}
+
+.anim-fade-up-2 {
+    animation: fadeUp 0.65s ease 0.22s both
+}
+
+.anim-fade-up-3 {
+    animation: fadeUp 0.65s ease 0.36s both
+}
+
+.anim-fade-up-4 {
+    animation: fadeUp 0.65s ease 0.50s both
+}
+
+.anim-fade-up-5 {
+    animation: fadeUp 0.65s ease 0.64s both
+}
+
+.anim-orb-a {
+    animation: orbA 9s ease-in-out infinite
+}
+
+.anim-orb-b {
+    animation: orbB 11s ease-in-out infinite
+}
+
+.anim-orb-c {
+    animation: orbA 13s ease-in-out 2s infinite reverse
+}
+
+.anim-bounce {
+    animation: bounceSlow 2s ease-in-out infinite
+}
+
+.anim-pulse-dot {
+    animation: pulseDot 1.6s ease-in-out infinite
+}
+
+.anim-bar-grow {
+    animation: barGrow 0.9s ease 0.85s both;
+    transform-origin: left
+}
+
+body {
+    font-family: 'Archivo', sans-serif;
 }
