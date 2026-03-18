@@ -194,6 +194,250 @@
   </section>
 
 
+  <section id="tools" class="relative bg-[#f0f7ff] py-24 px-4 overflow-hidden">
+ 
+    <!-- Subtle dot grid (same as hero) -->
+    <div class="absolute inset-0 pointer-events-none opacity-30
+      [background-image:radial-gradient(circle,#93c5fd_1px,transparent_1px)]
+      [background-size:28px_28px]"></div>
+ 
+    <div class="relative z-10 max-w-6xl mx-auto">
+ 
+      <!-- ── Section Header ── -->
+      <div class="text-center mb-14 reveal">
+ 
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 badge px-4 py-3 text-xs tracking-widest uppercase
+                    border border-blue-300 bg-blue-50 text-blue-600 rounded-full mb-5"
+             style="font-family:'Space Mono',monospace">
+          <i class="fa-solid fa-wrench text-xs"></i>
+          All Tools
+        </div>
+ 
+        <h2 class="font-black text-4xl sm:text-5xl text-slate-900 tracking-tight leading-tight">
+          Everything You
+          <span class="bg-gradient-to-r from-blue-500 via-cyan-500 to-indigo-500 bg-clip-text text-transparent">
+            Need
+          </span>
+        </h2>
+ 
+        <p class="mt-4 text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">
+          Pick a tool and get started instantly — no sign up, no ads, no nonsense.
+        </p>
+ 
+        <!-- Underline bar -->
+        <div class="mt-5 flex justify-center">
+          <div class="h-1 w-20 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+        </div>
+      </div>
+ 
+      <!-- ── Filter Tabs ── -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10 reveal"
+           style="font-family:'Space Mono',monospace">
+        <button onclick="filterTools('all')" id="tab-all"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-blue-400 bg-blue-500 text-white rounded-full transition-all duration-200">
+          All
+        </button>
+        <button onclick="filterTools('health')" id="tab-health"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-slate-200 bg-white text-slate-600 rounded-full hover:border-blue-300 hover:text-blue-600 transition-all duration-200">
+          🏃 Health
+        </button>
+        <button onclick="filterTools('math')" id="tab-math"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-slate-200 bg-white text-slate-600 rounded-full hover:border-blue-300 hover:text-blue-600 transition-all duration-200">
+          📐 Math
+        </button>
+        <button onclick="filterTools('converter')" id="tab-converter"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-slate-200 bg-white text-slate-600 rounded-full hover:border-blue-300 hover:text-blue-600 transition-all duration-200">
+          🔄 Converter
+        </button>
+        <button onclick="filterTools('text')" id="tab-text"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-slate-200 bg-white text-slate-600 rounded-full hover:border-blue-300 hover:text-blue-600 transition-all duration-200">
+          🔤 Text
+        </button>
+        <button onclick="filterTools('finance')" id="tab-finance"
+          class="tab-btn badge px-4 py-3 text-xs cursor-pointer border border-slate-200 bg-white text-slate-600 rounded-full hover:border-blue-300 hover:text-blue-600 transition-all duration-200">
+          💰 Finance
+        </button>
+      </div>
+ 
+      <!-- ── Tools Grid ── -->
+      <div id="tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+ 
+        <!-- Card: BMI Calculator -->
+        <a href="./tools/bmi.html" data-cat="health"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-2xl border border-blue-100">
+              ⚖️
+            </div>
+            <span class="badge badge-sm text-xs border border-blue-100 bg-blue-50 text-blue-500"
+                  style="font-family:'Space Mono',monospace">Health</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">BMI Calculator</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Calculate your Body Mass Index and find your ideal weight range.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Unit Converter -->
+        <a href="./tools/unit-converter.html" data-cat="converter"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-cyan-50 flex items-center justify-center text-2xl border border-cyan-100">
+              🔄
+            </div>
+            <span class="badge badge-sm text-xs border border-cyan-100 bg-cyan-50 text-cyan-600"
+                  style="font-family:'Space Mono',monospace">Converter</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Unit Converter</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Convert length, weight, temperature, speed and many more units.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Percentage Calculator -->
+        <a href="./tools/percentage.html" data-cat="math"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center text-2xl border border-indigo-100">
+              📐
+            </div>
+            <span class="badge badge-sm text-xs border border-indigo-100 bg-indigo-50 text-indigo-500"
+                  style="font-family:'Space Mono',monospace">Math</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Percentage Calculator</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Quickly find percentages, increases, decreases and differences.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Word Counter -->
+        <a href="./tools/word-counter.html" data-cat="text"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center text-2xl border border-violet-100">
+              🔤
+            </div>
+            <span class="badge badge-sm text-xs border border-violet-100 bg-violet-50 text-violet-500"
+                  style="font-family:'Space Mono',monospace">Text</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Word Counter</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Count words, characters, sentences and reading time instantly.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Currency Converter -->
+        <a href="./tools/currency.html" data-cat="finance"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-2xl border border-emerald-100">
+              💱
+            </div>
+            <span class="badge badge-sm text-xs border border-emerald-100 bg-emerald-50 text-emerald-600"
+                  style="font-family:'Space Mono',monospace">Finance</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Currency Converter</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Convert between 150+ world currencies with live exchange rates.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Age Calculator -->
+        <a href="./tools/age.html" data-cat="math"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-2xl border border-orange-100">
+              📅
+            </div>
+            <span class="badge badge-sm text-xs border border-indigo-100 bg-indigo-50 text-indigo-500"
+                  style="font-family:'Space Mono',monospace">Math</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Age Calculator</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Find your exact age in years, months, days, hours and seconds.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Color Picker -->
+        <a href="./tools/color-picker.html" data-cat="text"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-pink-50 flex items-center justify-center text-2xl border border-pink-100">
+              🎨
+            </div>
+            <span class="badge badge-sm text-xs border border-violet-100 bg-violet-50 text-violet-500"
+                  style="font-family:'Space Mono',monospace">Text</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Color Picker</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Pick colors and get HEX, RGB, HSL values in one click.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+        <!-- Card: Hash Generator -->
+        <a href="./tools/hash.html" data-cat="text"
+           class="tool-card group card bg-white border border-slate-200 rounded-2xl p-5 flex flex-col gap-3 cursor-pointer no-underline reveal">
+          <div class="flex items-start justify-between">
+            <div class="card-icon w-12 h-12 rounded-xl bg-slate-50 flex items-center justify-center text-2xl border border-slate-200">
+              🔐
+            </div>
+            <span class="badge badge-sm text-xs border border-violet-100 bg-violet-50 text-violet-500"
+                  style="font-family:'Space Mono',monospace">Text</span>
+          </div>
+          <div>
+            <h3 class="font-black text-slate-900 text-base leading-snug">Hash Generator</h3>
+            <p class="text-slate-500 text-sm mt-1 leading-relaxed">Generate MD5, SHA1, SHA256 hashes from any text instantly.</p>
+          </div>
+          <div class="mt-auto pt-2">
+            <span class="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold group-hover:gap-2.5 transition-all duration-200">
+              Use Now <i class="fa-solid fa-arrow-right text-xs"></i>
+            </span>
+          </div>
+        </a>
+ 
+      </div>
+      <!-- end grid -->
+ 
+    </div>
+  </section>
+
+
 
     <script src="./scripts/script.js"></script>
 
