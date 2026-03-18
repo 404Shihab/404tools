@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI Calculator | 404Tools</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes orbA     { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-28px) scale(1.06)} }
+    @keyframes orbB     { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(18px,-18px) scale(1.05)} }
+
+    .anim-fade-down { animation:fadeDown 0.6s ease both }
+    .anim-fade-up-1 { animation:fadeUp  0.6s ease 0.08s both }
+    .anim-fade-up-2 { animation:fadeUp  0.6s ease 0.18s both }
+    .anim-fade-up-3 { animation:fadeUp  0.6s ease 0.28s both }
+    .anim-fade-up-4 { animation:fadeUp  0.6s ease 0.38s both }
+    .anim-orb-a     { animation:orbA  9s ease-in-out infinite }
+    .anim-orb-b     { animation:orbB 11s ease-in-out infinite }
+
+    body { font-family:'Archivo',sans-serif; }
+
+    /* slider */
+    input[type=range] {
+      -webkit-appearance:none; appearance:none;
+      height:5px; border-radius:9999px;
+      background:#dbeafe; outline:none; width:100%;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance:none; appearance:none;
+      width:18px; height:18px; border-radius:50%;
+      background:linear-gradient(135deg,#3b82f6,#06b6d4);
+      cursor:pointer; border:2px solid white;
+      box-shadow:0 2px 8px rgba(59,130,246,0.4);
+    }
+    input[type=range]::-moz-range-thumb {
+      width:18px; height:18px; border-radius:50%;
+      background:linear-gradient(135deg,#3b82f6,#06b6d4);
+      cursor:pointer; border:2px solid white;
+    }
+
+  
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+    input[type=number] { -moz-appearance:textfield; }
+
+    
+    .spin-btn:active { transform:scale(0.9); }
+
+    
+    .gauge-needle { transition: left 0.5s cubic-bezier(.34,1.56,.64,1); }
+  </style>
+</head>
+
+<body class="bg-[#f0f7ff] min-h-screen">
+
+ 
+  <header>
+    <div class="navbar bg-sky-50/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-blue-100">
+      <div class="navbar-start">
+        <a href="../index.html" class="btn btn-ghost gap-2 text-slate-600 hover:text-blue-600 font-bold">
+          <i class="fa-solid fa-arrow-left text-sm"></i> Back
+        </a>
+      </div>
+      <div class="navbar-center">
+        <a href="../index.html" class="btn btn-ghost text-xl font-black tracking-tight text-blue-600">404tools 🛠️</a>
+      </div>
+      <div class="navbar-end">
+        <label class="swap swap-rotate btn btn-ghost btn-circle">
+          <input type="checkbox" class="theme-controller" value="synthwave" />
+          <svg class="swap-off h-6 w-6 fill-current text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
+          </svg>
+          <svg class="swap-on h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/>
+          </svg>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  
+  <div class="relative overflow-hidden bg-gradient-to-r from-blue-500 to-cyan-500 py-12 px-4">
+    <div class="anim-orb-a absolute -top-16 -left-16 w-64 h-64 rounded-full bg-white opacity-5 blur-3xl pointer-events-none"></div>
+    <div class="anim-orb-b absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-white opacity-5 blur-2xl pointer-events-none"></div>
+    <div class="absolute inset-0 pointer-events-none opacity-10
+      [background-image:radial-gradient(circle,white_1px,transparent_1px)]
+      [background-size:24px_24px]"></div>
+    <div class="relative z-10 max-w-2xl mx-auto text-center">
+      <div class="anim-fade-down inline-flex items-center gap-2 badge px-4 py-3 text-xs tracking-widest uppercase
+                  border border-white/30 bg-white/10 text-white rounded-full mb-4"
+           style="font-family:'Space Mono',monospace">
+        <i class="fa-solid fa-heart-pulse text-xs"></i> Health Tool
+      </div>
+      <h1 class="anim-fade-up-1 font-black text-4xl sm:text-5xl text-white tracking-tight">BMI Calculator ⚖️</h1>
+      <p class="anim-fade-up-2 mt-3 text-white/80 text-lg max-w-md mx-auto">
+        Calculate your Body Mass Index and understand what it means for your health.
+      </p>
+    </div>
+  </div>
+
+  
+  <main class="max-w-3xl mx-auto px-4 py-12">
+
+    
+    <div class="anim-fade-up-2 flex justify-center mb-8">
+      <div class="bg-white border border-blue-100 rounded-2xl p-1 flex gap-1 shadow-sm">
+        <button id="btn-metric" onclick="setUnit('metric')"
+          class="px-6 py-2 rounded-xl text-sm font-bold transition-all duration-200
+                 bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-sm">
+          Metric (kg / cm)
+        </button>
+        <button id="btn-imperial" onclick="setUnit('imperial')"
+          class="px-6 py-2 rounded-xl text-sm font-bold transition-all duration-200 text-slate-500 hover:text-blue-600">
+          Imperial (lb / ft)
+        </button>
+      </div>
+    </div>
+
+    
+    <div class="anim-fade-up-3 card bg-white border border-blue-100 rounded-2xl shadow-md p-7 mb-6 flex flex-col gap-7">
+
+      
+      <div>
+        <label class="block font-bold text-slate-700 text-sm mb-2">Gender</label>
+        <div class="flex gap-3">
+          <button id="gender-male" onclick="setGender('male')"
+            class="flex-1 py-3 rounded-xl border-2 border-blue-400 bg-blue-50 text-blue-600 font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-mars"></i> Male
+          </button>
+          <button id="gender-female" onclick="setGender('female')"
+            class="flex-1 py-3 rounded-xl border-2 border-slate-200 bg-white text-slate-500 font-bold text-sm transition-all duration-200 flex items-center justify-center gap-2 hover:border-pink-300 hover:text-pink-500">
+            <i class="fa-solid fa-venus"></i> Female
+          </button>
+        </div>
+      </div>
+
+      
+      <div>
+        <label class="block font-bold text-slate-700 text-sm mb-3">Age</label>
+        <div class="flex items-center gap-4">
+          
+          <div class="flex items-center gap-0 bg-blue-50 border border-blue-200 rounded-2xl overflow-hidden shrink-0">
+            <button onclick="spin('age',-1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150 font-black text-lg">
+              <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+            <input type="number" id="age" value="25" min="5" max="100"
+              class="w-14 h-11 text-center font-black text-base text-slate-800 bg-transparent outline-none border-x border-blue-200"
+              oninput="syncSlider('age'); calculate()" />
+            <button onclick="spin('age',1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150 font-black text-lg">
+              <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+          </div>
+          
+          <span class="text-slate-400 text-sm font-bold shrink-0" style="font-family:'Space Mono',monospace">years</span>
+          
+          <input type="range" id="age-slider" min="5" max="100" value="25" class="flex-1"
+            oninput="syncInput('age'); calculate()" />
+        </div>
+      </div>
+
+     
+      <div>
+        <label class="block font-bold text-slate-700 text-sm mb-3">
+          Height &nbsp;<span id="height-unit-label" class="text-blue-400 font-mono text-xs">cm</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-0 bg-blue-50 border border-blue-200 rounded-2xl overflow-hidden shrink-0">
+            <button onclick="spin('height',-1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150">
+              <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+            <input type="number" id="height" value="170" min="100" max="220"
+              class="w-14 h-11 text-center font-black text-base text-slate-800 bg-transparent outline-none border-x border-blue-200"
+              oninput="syncSlider('height'); calculate()" />
+            <button onclick="spin('height',1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150">
+              <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+          </div>
+          <span id="height-unit-tag" class="text-slate-400 text-sm font-bold shrink-0" style="font-family:'Space Mono',monospace">cm</span>
+          <input type="range" id="height-slider" min="100" max="220" value="170" class="flex-1"
+            oninput="syncInput('height'); calculate()" />
+        </div>
+      </div>
+
+      
+      <div>
+        <label class="block font-bold text-slate-700 text-sm mb-3">
+          Weight &nbsp;<span id="weight-unit-label" class="text-blue-400 font-mono text-xs">kg</span>
+        </label>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-0 bg-blue-50 border border-blue-200 rounded-2xl overflow-hidden shrink-0">
+            <button onclick="spin('weight',-1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150">
+              <i class="fa-solid fa-minus text-xs"></i>
+            </button>
+            <input type="number" id="weight" value="70" min="20" max="200"
+              class="w-14 h-11 text-center font-black text-base text-slate-800 bg-transparent outline-none border-x border-blue-200"
+              oninput="syncSlider('weight'); calculate()" />
+            <button onclick="spin('weight',1)"
+              class="spin-btn w-11 h-11 flex items-center justify-center text-blue-600 hover:bg-blue-100 transition-all duration-150">
+              <i class="fa-solid fa-plus text-xs"></i>
+            </button>
+          </div>
+          <span id="weight-unit-tag" class="text-slate-400 text-sm font-bold shrink-0" style="font-family:'Space Mono',monospace">kg</span>
+          <input type="range" id="weight-slider" min="20" max="200" value="70" class="flex-1"
+            oninput="syncInput('weight'); calculate()" />
+        </div>
+      </div>
+
+    </div>
+
+    
+    <div id="result-card" class="anim-fade-up-4 card bg-white border border-blue-100 rounded-2xl shadow-md p-7 mb-6">
+
+      
+      <div class="text-center mb-6">
+        <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-1"
+           style="font-family:'Space Mono',monospace">Your BMI</p>
+        <div id="bmi-value" class="font-black text-6xl text-slate-900 tracking-tight">24.2</div>
+        <div id="bmi-label"
+          class="mt-3 inline-flex items-center gap-2 badge px-4 py-2 text-sm font-bold rounded-full bg-green-50 border border-green-200 text-green-600">
+          ✅ Normal Weight
+        </div>
+      </div>
+
+     
+      <div class="mb-6">
+        <div class="relative">
+          <div class="flex gap-0.5 rounded-full overflow-hidden h-3 mb-1">
+            <div class="flex-[185] bg-blue-400 rounded-l-full"></div>
+            <div class="flex-[50]  bg-green-400"></div>
+            <div class="flex-[50]  bg-yellow-400"></div>
+            <div class="flex-[50]  bg-orange-400"></div>
+            <div class="flex-[65]  bg-red-500 rounded-r-full"></div>
+          </div>
+          <div id="gauge-needle"
+            class="gauge-needle absolute -top-1 w-4 h-4 rounded-full bg-slate-800 border-2 border-white shadow-md"
+            style="left:40%;transform:translateX(-50%)"></div>
+        </div>
+        <div class="flex justify-between text-xs text-slate-400 mt-3" style="font-family:'Space Mono',monospace">
+          <span>Under<br/>weight</span>
+          <span class="text-center">Normal</span>
+          <span class="text-center">Over<br/>weight</span>
+          <span class="text-center">Obese I</span>
+          <span class="text-right">Obese II+</span>
+        </div>
+      </div>
+
+      <div class="divider my-1 opacity-20"></div>
+
+      
+      <div class="grid grid-cols-3 gap-3 mt-4" style="font-family:'Space Mono',monospace">
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 text-center">
+          <div id="ideal-weight" class="font-bold text-blue-600 text-sm">60–75 kg</div>
+          <div class="text-xs text-slate-400 mt-0.5">Ideal Weight</div>
+        </div>
+        <div class="bg-cyan-50 border border-cyan-100 rounded-xl p-3 text-center">
+          <div id="bmi-short" class="font-bold text-cyan-600 text-sm">Normal</div>
+          <div class="text-xs text-slate-400 mt-0.5">Category</div>
+        </div>
+        <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-3 text-center">
+          <div id="weight-status" class="font-bold text-indigo-600 text-sm">On track ✓</div>
+          <div class="text-xs text-slate-400 mt-0.5">Status</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="anim-fade-up-4 card bg-white border border-blue-100 rounded-2xl shadow-md overflow-hidden mb-6">
+      <div class="p-5 border-b border-blue-50">
+        <h3 class="font-black text-slate-900 text-base">BMI Classification</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="table table-sm w-full" style="font-family:'Space Mono',monospace">
+          <thead class="bg-blue-50 text-slate-500 text-xs uppercase tracking-wider">
+            <tr><th>BMI</th><th>Category</th><th>Risk</th></tr>
+          </thead>
+          <tbody class="text-sm">
+            <tr class="hover:bg-blue-50/50">
+              <td class="font-bold text-blue-500">&lt; 18.5</td>
+              <td>Underweight</td>
+              <td><span class="badge badge-sm bg-blue-100 text-blue-600 border-0">Low</span></td>
+            </tr>
+            <tr class="hover:bg-green-50/50">
+              <td class="font-bold text-green-600">18.5 – 24.9</td>
+              <td>Normal Weight</td>
+              <td><span class="badge badge-sm bg-green-100 text-green-600 border-0">Healthy ✅</span></td>
+            </tr>
+            <tr class="hover:bg-yellow-50/50">
+              <td class="font-bold text-yellow-600">25.0 – 29.9</td>
+              <td>Overweight</td>
+              <td><span class="badge badge-sm bg-yellow-100 text-yellow-700 border-0">Moderate</span></td>
+            </tr>
+            <tr class="hover:bg-orange-50/50">
+              <td class="font-bold text-orange-500">30.0 – 34.9</td>
+              <td>Obese Class I</td>
+              <td><span class="badge badge-sm bg-orange-100 text-orange-600 border-0">High</span></td>
+            </tr>
+            <tr class="hover:bg-red-50/50">
+              <td class="font-bold text-red-500">35.0+</td>
+              <td>Obese Class II+</td>
+              <td><span class="badge badge-sm bg-red-100 text-red-600 border-0">Very High</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+   
+    <div class="anim-fade-up-4 alert bg-blue-50 border border-blue-200 text-blue-700 text-sm rounded-2xl">
+      <i class="fa-solid fa-circle-info text-blue-400 shrink-0"></i>
+      <span>BMI is a general indicator. For accurate health assessment, please consult a medical professional.</span>
+    </div>
+
+  </main>
+
+  <script>
+    let unit   = 'metric';
+    let gender = 'male';
+
+    
+    function syncSlider(field) {
+      const input  = document.getElementById(field);
+      const slider = document.getElementById(field + '-slider');
+      let val = parseFloat(input.value);
+      val = Math.min(Math.max(val, parseFloat(slider.min)), parseFloat(slider.max));
+      input.value  = val;
+      slider.value = val;
+    }
+
+    
+    function syncInput(field) {
+      const slider = document.getElementById(field + '-slider');
+      const input  = document.getElementById(field);
+      input.value  = slider.value;
+    }
+
+   
+    function spin(field, delta) {
+      const input  = document.getElementById(field);
+      const slider = document.getElementById(field + '-slider');
+      let val = parseFloat(input.value) + delta;
+      val = Math.min(Math.max(val, parseFloat(input.min)), parseFloat(input.max));
+      input.value  = val;
+      slider.value = val;
+      calculate();
+    }
+
+    
+    function setUnit(u) {
+      unit = u;
+      const mBtn = document.getElementById('btn-metric');
+      const iBtn = document.getElementById('btn-imperial');
+      const hIn  = document.getElementById('height');
+      const hSl  = document.getElementById('height-slider');
+      const wIn  = document.getElementById('weight');
+      const wSl  = document.getElementById('weight-slider');
+
+      const active   = 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-sm';
+      const inactive = 'text-slate-500';
+
+      if (u === 'metric') {
+        mBtn.className = mBtn.className.replace(inactive, '') + ' ' + active;
+        iBtn.className = iBtn.className.replace(active, inactive);
+        hIn.min = 100; hIn.max = 220; hIn.value = 170;
+        hSl.min = 100; hSl.max = 220; hSl.value = 170;
+        wIn.min = 20;  wIn.max = 200; wIn.value = 70;
+        wSl.min = 20;  wSl.max = 200; wSl.value = 70;
+        document.getElementById('height-unit-label').textContent = 'cm';
+        document.getElementById('height-unit-tag').textContent   = 'cm';
+        document.getElementById('weight-unit-label').textContent = 'kg';
+        document.getElementById('weight-unit-tag').textContent   = 'kg';
+      } else {
+        iBtn.className = iBtn.className.replace(inactive, '') + ' ' + active;
+        mBtn.className = mBtn.className.replace(active, inactive);
+        hIn.min = 48; hIn.max = 90; hIn.value = 67;
+        hSl.min = 48; hSl.max = 90; hSl.value = 67;
+        wIn.min = 50; wIn.max = 440; wIn.value = 155;
+        wSl.min = 50; wSl.max = 440; wSl.value = 155;
+        document.getElementById('height-unit-label').textContent = 'in';
+        document.getElementById('height-unit-tag').textContent   = 'in';
+        document.getElementById('weight-unit-label').textContent = 'lb';
+        document.getElementById('weight-unit-tag').textContent   = 'lb';
+      }
+      calculate();
+    }
+
+    
+    function setGender(g) {
+      gender = g;
+      const male   = document.getElementById('gender-male');
+      const female = document.getElementById('gender-female');
+      if (g === 'male') {
+        male.className   = male.className.replace('border-slate-200 bg-white text-slate-500','border-blue-400 bg-blue-50 text-blue-600');
+        female.className = female.className.replace('border-pink-300 bg-pink-50 text-pink-500','border-slate-200 bg-white text-slate-500');
+      } else {
+        female.className = female.className.replace('border-slate-200 bg-white text-slate-500','border-pink-300 bg-pink-50 text-pink-500');
+        male.className   = male.className.replace('border-blue-400 bg-blue-50 text-blue-600','border-slate-200 bg-white text-slate-500');
+      }
+      calculate();
+    }
+
+    
+    function calculate() {
+      let h = parseFloat(document.getElementById('height').value);
+      let w = parseFloat(document.getElementById('weight').value);
+
+      let hM, wKg;
+      if (unit === 'imperial') {
+        hM  = h * 0.0254;
+        wKg = w * 0.453592;
+      } else {
+        hM  = h / 100;
+        wKg = w;
+      }
+
+      if (!hM || !wKg) return;
+      const bmi = wKg / (hM * hM);
+      const bmiR = Math.round(bmi * 10) / 10;
+
+      let label, colorCls, short, shortColor;
+      if (bmi < 18.5) {
+        label='🔵 Underweight'; colorCls='bg-blue-50 border-blue-200 text-blue-600'; short='Underweight'; shortColor='text-blue-600';
+      } else if (bmi < 25) {
+        label='✅ Normal Weight'; colorCls='bg-green-50 border-green-200 text-green-600'; short='Normal'; shortColor='text-green-600';
+      } else if (bmi < 30) {
+        label='⚠️ Overweight'; colorCls='bg-yellow-50 border-yellow-200 text-yellow-600'; short='Overweight'; shortColor='text-yellow-600';
+      } else if (bmi < 35) {
+        label='🔴 Obese Class I'; colorCls='bg-orange-50 border-orange-200 text-orange-600'; short='Obese I'; shortColor='text-orange-600';
+      } else {
+        label='🚨 Obese Class II+'; colorCls='bg-red-50 border-red-200 text-red-600'; short='Obese II+'; shortColor='text-red-600';
+      }
+
+      
+      const iLow  = Math.round(18.5 * hM * hM * (unit==='metric' ? 1 : 2.20462) * 10) / 10;
+      const iHigh = Math.round(24.9 * hM * hM * (unit==='metric' ? 1 : 2.20462) * 10) / 10;
+      const uLabel = unit === 'metric' ? ' kg' : ' lb';
+      document.getElementById('ideal-weight').textContent = iLow + '–' + iHigh + uLabel;
+
+      
+      let status;
+      const wIdealHigh = 24.9 * hM * hM;
+      const wIdealLow  = 18.5 * hM * hM;
+      if (bmi < 18.5) {
+        const diff = Math.round((wIdealLow - wKg) * (unit==='metric'?1:2.20462) * 10)/10;
+        status = '+' + diff + uLabel + ' needed';
+      } else if (bmi < 25) {
+        status = 'On track ✓';
+      } else {
+        const diff = Math.round((wKg - wIdealHigh) * (unit==='metric'?1:2.20462) * 10)/10;
+        status = 'Lose ' + diff + uLabel;
+      }
+
+      
+      const pct = Math.min(Math.max(((bmi - 10) / 35) * 100, 2), 98);
+
+      document.getElementById('bmi-value').textContent = bmiR;
+      const lbl = document.getElementById('bmi-label');
+      lbl.textContent = label;
+      lbl.className = 'mt-3 inline-flex items-center gap-2 badge px-4 py-2 text-sm font-bold rounded-full ' + colorCls;
+      const s = document.getElementById('bmi-short');
+      s.textContent = short;
+      s.className = 'font-bold text-sm ' + shortColor;
+      document.getElementById('weight-status').textContent = status;
+      document.getElementById('gauge-needle').style.left = pct + '%';
+    }
+
+    calculate();
+  </script>
+
+</body>
+</html>
